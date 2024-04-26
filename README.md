@@ -1,1 +1,3 @@
-# ansibleimage
+# Ansible image
+
+Prebuilt ansible container
