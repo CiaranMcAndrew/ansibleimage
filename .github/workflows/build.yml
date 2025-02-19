@@ -31,7 +31,7 @@ jobs:
         with:
           registry: ghrc.io
           username: ${{github.actor}}
-          password: ${{secrets.GIITHUB_TOKEN}}
+          password: ${{secrets.GITHUB_TOKEN}}
 
       - name: Build image
         run: docker build --build-arg PROVIDERS=./plugins -t ghrc.io/ciaranmcandrew/ansible-agent3:latest -t ghrc.io/ciaranmcandrew/ansible-agent3:${{ steps.semver.outputs.next }} .
