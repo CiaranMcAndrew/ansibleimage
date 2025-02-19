@@ -34,10 +34,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build image
-        run: docker build --build-arg PROVIDERS=./plugins -t ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent:latest -t ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent:${{ steps.semver.outputs.next }} .
+        run: docker build --build-arg PROVIDERS=./plugins -t ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent2:latest -t ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent2:${{ steps.semver.outputs.next }} .
 
       - name: Publish image
-        run: docker push --all-tags ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent
+        run: docker push --all-tags ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent2
 
       - name: Create Release
         id: create_release
