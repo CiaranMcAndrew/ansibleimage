@@ -26,18 +26,31 @@ jobs:
       - name: "Created tag"
         run: echo "tag ${{ steps.semver.outputs.next }}"
 
-      -
-        name: Login to Docker Hub
+      - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghrc.io
+          username: ${{github.actor}}
+          password: ${{secrets.GIITHUB_TOKEN}}
 
       - name: Build image
-        run: docker build --build-arg PROVIDERS=./plugins -t ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent2:latest -t ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent2:${{ steps.semver.outputs.next }} .
+        run: docker build --build-arg PROVIDERS=./plugins -t ghrc.io/ciaranmcandrew/ansible-agent3:latest -t ghrc.io/ciaranmcandrew/ansible-agent3:${{ steps.semver.outputs.next }} .
 
       - name: Publish image
-        run: docker push --all-tags ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent2
+        run: docker push --all-tags ghrc.io/ciaranmcandrew/ansible-agent3
+
+      # -
+      #   name: Login to Docker Hub
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # - name: Build image
+      #   run: docker build --build-arg PROVIDERS=./plugins -t ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent2:latest -t ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent2:${{ steps.semver.outputs.next }} .
+
+      # - name: Publish image
+      #   run: docker push --all-tags ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent2
 
       - name: Create Release
         id: create_release
