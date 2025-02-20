@@ -50,7 +50,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build image
-        run: docker build --build-arg PROVIDERS=./plugins --build-arg ANSIBLE_VERSION=$ANSIBLE_VERSION -t ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent:latest -t ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent:$ANSIBLE_VERSION .
+        run: docker build --build-arg PROVIDERS=./plugins --build-arg ANSIBLE_VERSION=$ANSIBLE_VERSION -t ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent:latest -t ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent:$ANSIBLE_VERSION -t ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent:$ANSIBLE_VERSION-bookworm .
 
       - name: Publish image
         run: docker push --all-tags ${{ secrets.DOCKERHUB_USERNAME }}/ansible-agent
